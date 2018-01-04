@@ -18,7 +18,7 @@ features not implemented currently
 
 
 * I recommend to use Project Generator. It is easy to setup include and library path
-* To launch your app, FlyCapture2.dll should be in same folder of your exe file.
+* To launch your app, FlyCapture2_v140.dll should be in same folder of your exe file.
 
 I don't know much about software license, but it seems better not to redistribute headers and libraries.
 http://www.ptgrey.com/Content/Images/uploaded/FlyCapture2Help/flycapture/07legal/softwarelicenseagreement.html
