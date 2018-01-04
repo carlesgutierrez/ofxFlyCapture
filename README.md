@@ -16,8 +16,6 @@ features not implemented currently
 * sub-folder "C" is not necessary.
 * copy library file C:\Program Files\Point Grey Research\FlyCapture2\lib64\vs2015\FlyCapture2_v140.lib to ofxFlyCapture\libs\FlyCapture2\lib\vs\x64\ and rename into FlyCapture2.lib
 
-![](https://i.gyazo.com/977d45d33c98e66cf8acfd3909daf314.png)
-
 
 * I recommend to use Project Generator. It is easy to setup include and library path
 * To launch your app, FlyCapture2.dll should be in same folder of your exe file.
