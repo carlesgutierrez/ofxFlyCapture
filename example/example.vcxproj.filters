@@ -39,6 +39,9 @@
     <Filter Include="addons\ofxFlyCapture\src">
       <UniqueIdentifier>{80ada7e1-92e7-4b3d-a276-4d0791b66d60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="addons\ofxFlyCapture\libs\FlyCapture2\x64">
+      <UniqueIdentifier>{5aef2416-6721-47a1-8380-15a37f25e2f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ofApp.h">
@@ -98,5 +101,10 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\libs\FlyCapture2\lib\vs\x64\FlyCapture2.lib">
+      <Filter>addons\ofxFlyCapture\libs\FlyCapture2\x64</Filter>
+    </Library>
   </ItemGroup>
 </Project>
