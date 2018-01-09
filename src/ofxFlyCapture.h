@@ -83,6 +83,10 @@ public:
 	/// \brief Update the object's state.
 	void update();
 
+	string getSerialId() {
+		return serialId;
+	}
+
 private:
 	bool bChooseDevice;
 	int deviceID;
@@ -93,9 +97,12 @@ private:
 	bool bIsFrameNew;
 	bool bGrabberInitied;
 	ofPixels pixels;
+
+	string serialId;
 };
 
 class ofxFlyCaptureGrabber : public ofVideoGrabber {
 public:
 	ofxFlyCaptureGrabber();
+	string getSerialId() const;
 };

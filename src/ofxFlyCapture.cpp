@@ -5,7 +5,8 @@ using namespace FlyCapture2;
 
 ofxFlyCapture::ofxFlyCapture() : 
 	bChooseDevice(false),
-	bGrabberInitied(false)
+	bGrabberInitied(false),
+	serialId("")
 {
 }
 
@@ -88,7 +89,8 @@ bool ofxFlyCapture::setup(int w, int h) {
 	if (bChooseDevice) {
 		BusManager busMgr;
 		PGRGuid guid;
-		busMgr.GetCameraFromIndex(deviceID, &guid);
+		//busMgr.GetCameraFromIndex(deviceID, &guid);
+		busMgr.GetCameraFromSerialNumber(deviceID, &guid);
 		if (camera->Connect(&guid) != PGRERROR_OK) {
 			return false;
 		}
@@ -119,6 +121,7 @@ bool ofxFlyCapture::setup(int w, int h) {
 			break;
 
 		default:
+			pixelFormat = OF_PIXELS_RGB;
 			ofLogWarning() << "unknown pixel format. " << fmt7is.pixelFormat;
 		}
 	}
@@ -129,6 +132,9 @@ bool ofxFlyCapture::setup(int w, int h) {
 		pixelFormat = std::get<2>(fmt);
 	}
 
+	FlyCapture2::CameraInfo ci;
+	camera->GetCameraInfo(&ci);
+	serialId = ofToString(ci.serialNumber);
 	bGrabberInitied = camera->StartCapture() == PGRERROR_OK;
 	return bGrabberInitied;
 }
@@ -203,11 +209,36 @@ void ofxFlyCapture::update() {
 			|| pixels.getPixelFormat() != pixelFormat) {
 			pixels.allocate(width, height, pixelFormat);
 		}
-		pixels.setFromPixels(tmpBuffer.GetData(), width, height, pixelFormat);
+		//pixels.setFromPixels(tmpBuffer.GetData(), width, height, pixelFormat);
+
+		if (pixelFormat == OF_PIXELS_RGB)
+		{
+			FlyCapture2::Image rgb;
+			tmpBuffer.Convert(FlyCapture2::PIXEL_FORMAT_RGB, &rgb);
+			pixels.setFromPixels(tmpBuffer.GetData(), width, height, pixelFormat);
+		}
+		else
+		{
+			pixels.setFromPixels(tmpBuffer.GetData(), width, height, pixelFormat);
+		}
+
 		bIsFrameNew = true;
 	}
 }
 
+
 ofxFlyCaptureGrabber::ofxFlyCaptureGrabber() {
 	this->setGrabber(make_shared<ofxFlyCapture>());
+}
+
+string ofxFlyCaptureGrabber::getSerialId() const {
+	auto ptr = dynamic_pointer_cast<ofxFlyCapture>(this->getGrabber());
+	if (ptr)
+	{
+		return ptr->getSerialId();
+	}
+	else
+	{
+		return "";
+	}
 }

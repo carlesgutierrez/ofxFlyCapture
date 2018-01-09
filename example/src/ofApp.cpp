@@ -7,8 +7,10 @@ void ofApp::setup(){
 		ofLogNotice() << d.deviceName << ", " << d.serialID;
 	}
 
-	vidGrabber.setDeviceID(1);
+	//vidGrabber.setDeviceID(1);
+	vidGrabber.setDeviceID( ofToInt(devices.begin()->serialID) ); //get the first one by ID
 	vidGrabber.setup(0, 0);
+	//vidGrabber.setup(0, 0, true); //true for texture
 }
 
 //--------------------------------------------------------------
