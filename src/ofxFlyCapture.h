@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofVideoGrabber.h"
+#include "FlyCapture2.h"
 
 namespace FlyCapture2 {
 	class Camera;
@@ -86,6 +87,10 @@ public:
 	string getSerialId() {
 		return serialId;
 	}
+
+	void PrintBuildInfo();
+	//void PrintCameraInfo(CameraInfo *pCamInfo);
+	void PrintCameraInfo();
 
 private:
 	bool bChooseDevice;

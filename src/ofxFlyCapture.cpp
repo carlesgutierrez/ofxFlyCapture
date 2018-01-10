@@ -1,5 +1,5 @@
 #include "ofxFlyCapture.h"
-#include "FlyCapture2.h"
+
 
 using namespace FlyCapture2;
 
@@ -100,6 +100,17 @@ bool ofxFlyCapture::setup(int w, int h) {
 			return false;
 		}
 	}
+
+	// Get the camera information
+	/*CameraInfo camInfo;
+	if (camera->GetCameraInfo(&camInfo) != PGRERROR_OK)
+	{
+		//ofLogError() << error.GetDescription();
+		return false;
+	}*/
+
+	//PrintCameraInfo(&camInfo);
+	PrintCameraInfo();
 
 	// todo set frame size to desired (w, h)
 	VideoMode vm;
@@ -224,6 +235,39 @@ void ofxFlyCapture::update() {
 
 		bIsFrameNew = true;
 	}
+}
+
+
+void ofxFlyCapture::PrintBuildInfo()
+{
+	FC2Version fc2Version;
+	Utilities::GetLibraryVersion(&fc2Version);
+
+	ostringstream version;
+	version << "FlyCapture2 library version: " << fc2Version.major << "."
+		<< fc2Version.minor << "." << fc2Version.type << "."
+		<< fc2Version.build;
+	cout << version.str() << endl;
+
+	ostringstream timeStamp;
+	timeStamp << "Application build date: " << __DATE__ << " " << __TIME__;
+	cout << timeStamp.str() << endl << endl;
+}
+
+//void ofxFlyCapture::PrintCameraInfo(CameraInfo *pCamInfo)
+void ofxFlyCapture::PrintCameraInfo()
+{
+	CameraInfo pCamInfo;
+	camera->GetCameraInfo(&pCamInfo);
+	cout << endl;
+	ofLogNotice() << "*** CAMERA INFORMATION ***" ;
+	ofLogNotice() << "Serial number - " << pCamInfo.serialNumber ;
+	ofLogNotice() << "Camera model - " << pCamInfo.modelName ;
+	ofLogNotice() << "Camera vendor - " << pCamInfo.vendorName ;
+	ofLogNotice() << "Sensor - " << pCamInfo.sensorInfo ;
+	ofLogNotice() << "Resolution - " << pCamInfo.sensorResolution ;
+	ofLogNotice() << "Firmware version - " << pCamInfo.firmwareVersion ;
+	ofLogNotice() << "Firmware build time - " << pCamInfo.firmwareBuildTime << endl;
 }
 
 
