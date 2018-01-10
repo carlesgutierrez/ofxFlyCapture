@@ -20,11 +20,9 @@ features not implemented currently
 * I recommend to use Project Generator. It is easy to setup include and library path
 * To launch your app, FlyCapture2_v140.dll should be in same folder of your exe file.
 
-I don't know much about software license, but it seems better not to redistribute headers and libraries.
+It seems better not to redistribute headers and libraries:
 http://www.ptgrey.com/Content/Images/uploaded/FlyCapture2Help/flycapture/07legal/softwarelicenseagreement.html
 
 # tested devices
 
-* Grasshopper3 GS3-U3-23S6M (mono, USB3)
-* Blackfly BFLY-PGE-13S2M (mono, GIGE)
-* FireFly MV FMVU-03MTM-CS (mono, USB2)
+* Blackfly U3-13S2C-CS (color, USB3)
