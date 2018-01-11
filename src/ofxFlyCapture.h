@@ -2,6 +2,7 @@
 
 #include "ofVideoGrabber.h"
 #include "FlyCapture2.h"
+#include "Camera.h"
 
 namespace FlyCapture2 {
 	class Camera;
@@ -12,6 +13,8 @@ class ofxFlyCapture : public ofBaseVideoGrabber
 public:
 	ofxFlyCapture();
 	virtual ~ofxFlyCapture();
+
+	void onNewFrame(FlyCapture2::Image *pImage);
 
 	// from ofBaseVideoGrabber
 	/// \brief Get a list of available video grabber devices.
@@ -104,6 +107,9 @@ private:
 	ofPixels pixels;
 
 	string serialId;
+	ofMutex mutex;
+	ofPixels buffer;
+	float lastTimeFrameReceived;
 };
 
 class ofxFlyCaptureGrabber : public ofVideoGrabber {

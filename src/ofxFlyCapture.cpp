@@ -3,10 +3,43 @@
 
 using namespace FlyCapture2;
 
-ofxFlyCapture::ofxFlyCapture() : 
+void onNewFrameReceived(FlyCapture2::Image *pImage, const void *instance) {
+	auto p = (ofxFlyCapture*)instance;
+	p->onNewFrame(pImage);
+}
+
+void ofxFlyCapture::onNewFrame(FlyCapture2::Image *pImage) {
+	mutex.lock();
+	if (!buffer.isAllocated()
+		|| buffer.getWidth() != width
+		|| buffer.getHeight() != height
+		|| buffer.getPixelFormat() != pixelFormat)
+	{
+		buffer.allocate(width, height, pixelFormat);
+	}
+
+
+	if (pixelFormat == OF_PIXELS_RGB)
+	{
+		FlyCapture2::Image rgb;
+		pImage->Convert(FlyCapture2::PIXEL_FORMAT_RGB, &rgb);
+		buffer.setFromPixels(rgb.GetData(), width, height, pixelFormat);
+	}
+	else
+	{
+		buffer.setFromPixels(pImage->GetData(), width, height, pixelFormat);
+	}
+	bIsFrameNew = true;
+	lastTimeFrameReceived = ofGetElapsedTimef();
+	mutex.unlock();
+}
+
+ofxFlyCapture::ofxFlyCapture() :
 	bChooseDevice(false),
 	bGrabberInitied(false),
-	serialId("")
+	serialId(""),
+	bIsFrameNew(false),
+	lastTimeFrameReceived(0)
 {
 }
 
@@ -146,7 +179,8 @@ bool ofxFlyCapture::setup(int w, int h) {
 	FlyCapture2::CameraInfo ci;
 	camera->GetCameraInfo(&ci);
 	serialId = ofToString(ci.serialNumber);
-	bGrabberInitied = camera->StartCapture() == PGRERROR_OK;
+	//bGrabberInitied = camera->StartCapture() == PGRERROR_OK;
+	bGrabberInitied = camera->StartCapture(&onNewFrameReceived, this) == PGRERROR_OK;
 	return bGrabberInitied;
 }
 
@@ -206,7 +240,7 @@ void ofxFlyCapture::update() {
 	if (!camera) {
 		return;
 	}
-
+	/*
 	FlyCapture2::Image tmpBuffer;
 	Error e = camera->RetrieveBuffer(&tmpBuffer);
 	if (e != PGRERROR_OK) {
@@ -234,6 +268,14 @@ void ofxFlyCapture::update() {
 		}
 
 		bIsFrameNew = true;
+	}*/
+
+	mutex.lock();
+	pixels = buffer;
+	mutex.unlock();
+	if (lastTimeFrameReceived > 0)
+	{
+		bIsFrameNew = ofGetElapsedTimef() - lastTimeFrameReceived < 1.f;
 	}
 }
 

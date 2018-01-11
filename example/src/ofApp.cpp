@@ -2,6 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+	ofSetFrameRate(60);
 	auto devices = vidGrabber.listDevices();
 	for (auto &d : devices) {
 		ofLogNotice() << d.deviceName << ", " << d.serialID;
@@ -20,7 +21,8 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	vidGrabber.draw(0, 0);
+	//vidGrabber.draw(0, 0);
+	ofDrawBitmapString(ofGetFrameRate(), 20, 30);
 }
 
 //--------------------------------------------------------------
