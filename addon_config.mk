@@ -16,10 +16,10 @@
 
 meta:
 	ADDON_NAME = ofxFlyCapture
-	ADDON_DESCRIPTION = Addon for capturing Point Grey Research's camera with FlyCapture SDK
-	ADDON_AUTHOR = Tetsuro Kato
+	ADDON_DESCRIPTION = Addon for capturing Point Grey Research's camera with FlyCapture2 SDK
+	ADDON_AUTHOR = Tetsuro Kato, adapted by VanTa
 	ADDON_TAGS = "video capture" "device"
-	ADDON_URL = http://github.com/katotetsuro/ofxFlyCapture
+	ADDON_URL = http://github.com/thomasvanta/ofxFlyCapture
 
 common:
 	# dependencies with other addons, a list of them separated by spaces
@@ -61,5 +61,13 @@ common:
 	# ADDON_LIBS_EXCLUDE =
 
 vs:
-	ADDON_INCLUDES = libs/FlyCapture2/include
+	ADDON_INCLUDES = 
 	ADDON_INCLUDES += src/
+	ADDON_INCLUDES += libs/
+	ADDON_INCLUDES += libs/FlyCapture2
+	ADDON_INCLUDES += libs/FlyCapture2/include
+	ADDON_INCLUDES += libs/FlyCapture2/include/C
+	ADDON_INCLUDES += libs/FlyCapture2/include/FC1
+	ADDON_INCLUDES += libs/FlyCapture2/lib
+	ADDON_INCLUDES += libs/FlyCapture2/lib/C
+	ADDON_INCLUDES += libs/FlyCapture2/lib/FC1
