@@ -21,7 +21,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	//vidGrabber.draw(0, 0);
+	vidGrabber.draw(0, 0);
 	ofDrawBitmapString(ofGetFrameRate(), 20, 30);
 }
 

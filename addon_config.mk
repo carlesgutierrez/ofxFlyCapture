@@ -61,10 +61,11 @@ common:
 	# ADDON_LIBS_EXCLUDE =
 
 vs:
-	ADDON_INCLUDES = 
+	ADDON_INCLUDES =
 	ADDON_INCLUDES += src/
 	ADDON_INCLUDES += libs/
 	ADDON_INCLUDES += libs/FlyCapture2
+	ADDON_INCLUDES += libs/FlyCapture2/bin
 	ADDON_INCLUDES += libs/FlyCapture2/include
 	ADDON_INCLUDES += libs/FlyCapture2/include/C
 	ADDON_INCLUDES += libs/FlyCapture2/include/FC1
