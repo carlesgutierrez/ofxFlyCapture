@@ -174,6 +174,7 @@ bool ofxFlyCapture::setup(int w, int h) {
 		width = std::get<0>(fmt);
 		height = std::get<1>(fmt);
 		pixelFormat = std::get<2>(fmt);
+		cout << "parseVideoMode " << endl;
 	}
 
 	FlyCapture2::CameraInfo ci;
@@ -314,11 +315,11 @@ void ofxFlyCapture::PrintCameraInfo()
 
 
 ofxFlyCaptureGrabber::ofxFlyCaptureGrabber() {
-	this->setGrabber(make_shared<ofxFlyCapture>());
+	this->setGrabber(std::make_shared<ofxFlyCapture>());
 }
 
-string ofxFlyCaptureGrabber::getSerialId() const {
-	auto ptr = dynamic_pointer_cast<ofxFlyCapture>(this->getGrabber());
+std::string ofxFlyCaptureGrabber::getSerialId() const {
+	auto ptr = std::dynamic_pointer_cast<ofxFlyCapture>(this->getGrabber());
 	if (ptr)
 	{
 		return ptr->getSerialId();

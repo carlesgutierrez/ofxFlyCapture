@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ofMain.h"
 #include "ofVideoGrabber.h"
 #include "FlyCapture2.h"
 #include "Camera.h"
@@ -19,7 +20,7 @@ public:
 	// from ofBaseVideoGrabber
 	/// \brief Get a list of available video grabber devices.
 	/// \returns a std::vector of ofVideoDevice objects.
-	vector<ofVideoDevice>	listDevices() const;
+	std::vector<ofVideoDevice>	listDevices() const;
 
 	/// \brief Set up the grabber with the requested width and height.
 	///
@@ -87,7 +88,7 @@ public:
 	/// \brief Update the object's state.
 	void update();
 
-	string getSerialId() {
+	std::string getSerialId() {
 		return serialId;
 	}
 
@@ -98,7 +99,7 @@ public:
 private:
 	bool bChooseDevice;
 	int deviceID;
-	shared_ptr<class FlyCapture2::Camera> camera;
+	std::shared_ptr<class FlyCapture2::Camera> camera;
 	int width;
 	int height;
 	ofPixelFormat pixelFormat;
@@ -106,7 +107,7 @@ private:
 	bool bGrabberInitied;
 	ofPixels pixels;
 
-	string serialId;
+	std::string serialId;
 	ofMutex mutex;
 	ofPixels buffer;
 	float lastTimeFrameReceived;
@@ -115,5 +116,5 @@ private:
 class ofxFlyCaptureGrabber : public ofVideoGrabber {
 public:
 	ofxFlyCaptureGrabber();
-	string getSerialId() const;
+	std::string getSerialId() const;
 };
